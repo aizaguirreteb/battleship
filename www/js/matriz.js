@@ -15,56 +15,44 @@
  * D = destructor (4)
  */
 
-$.matriz = {};
+function Matriz(fil, col){
+    this.columnas=col;
+    this.filas=fil;
+    this.data=new Array(this.filas);
 
-//en principio es de 5x5
-$.matriz.filas = 5;
-$.matriz.columnas = 5;
-$.matriz.data = [];
-
-
-$.matriz.init = function (fil, col) {
-    if (fil === undefined || col === undefined) {
-        //tamaño por defecto
-
-    } else {
-        $.matriz.columnas = col;
-        $.matriz.filas = fil;
-    }
-    $.matriz.data = new Array($.matriz.filas);
-    for (let i = 0; i < $.matriz.columnas; i++) {
-        $.matriz.data[i] = new Array($.matriz.columnas);
-    }
-}
-
-/**
- * Método para rellenar una matriz con un valor(primero nuestro tablero está lleno de agua)
- */
-$.matriz.fill = function (dato) {
-    /*
-   for(let i=0; i<$.matriz.filas; i++){
-       for(let j=0; j<$.matriz.columnas; j++){
-           $.matriz.data[i][j] = dato;
-       }
-   }
-   */
-
-    for (let i = 0; i < $.matriz.filas; i++) {
-        $.matriz.data[i].fill(dato);
+    for (var i=0; i<fil; i++) {
+        this.data[i] = new Array(this.columnas);    
+        this.data[i].fill('0');            
     }
 
-}
+    this.get = (i,j) => {
+        if (i>=0 && i<this.filas && j>=0 && j<this.columnas )
+            return this.data[i][j];
+        else 
+            return null;
+    }
 
-/**
- * Este método almacena el dato en la posición [fil, col] de la matriz.
- */
-$.matriz.set = function(fil, col, dato) {
-    $.matriz.data[fil][col] = dato;
-}
-
-/**
- * Este método devuelve el valor almacenado en la posición [fil, col].
- */
-$.matriz.get = function (fil, col) {
-    return $.matriz.data[fil][col];    
+    this.set = (i,j,dato) => {
+        if (i>=0 && i<this.filas && j>=0 && j<this.columnas ) {
+            this.data[i][j]=dato;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    this.fill = (dato) => {
+        for(let i=0;i<this.filas;i++){
+            this.data[i].fill(dato);                
+        }
+    }
+    this.toString = () => {
+        var salida ="";
+        for(let i=0; i<this.filas; i++){                
+            for(let j=0;j<this.columnas;j++){
+                salida+=this.data[i][j]+"\t";
+            }
+            salida+="\n";
+        }
+        return salida;
+    }
 }
