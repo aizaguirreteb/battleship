@@ -15,24 +15,54 @@
  * D = destructor (4)
  */
 
-function Matriz(fil, col){
-    this.columnas=col;
-    this.filas=fil;
-    this.data=new Array(this.filas);
+class Matriz{    
+    constructor(fil, col){
+        this.columnas=col;
+        this.filas=fil;
+        this.data=new Array(this.filas);
 
-    for (var i=0; i<fil; i++) {
-        this.data[i] = new Array(this.columnas);    
-        this.data[i].fill('0');            
+        for (var i=0; i<fil; i++) {
+            this.data[i] = new Array(this.columnas);    
+            this.data[i].fill('a');  
+        }
     }
 
-    this.get = (i,j) => {
+    /**
+     * Devuelve el número de filas de la matriz
+     * @returns el número de columnas
+     */
+    getFilas(){
+        return this.filas;
+    }
+
+    /**
+     * Nos da el número de columnas de la matriz
+     * @returns el número de columnas
+     */
+    getColumnas(){
+        return this.columnas;
+    }
+
+    /**
+     * Devuelve el contenido de la posición indicada en la matriz.
+     * Si nos salimos de la matriz, devuelve NULL.
+     * @param {number} i fila
+     * @param {number} j columna
+     */
+    get(i,j) {
         if (i>=0 && i<this.filas && j>=0 && j<this.columnas )
             return this.data[i][j];
         else 
             return null;
     }
 
-    this.set = (i,j,dato) => {
+    /**
+     * Guarda un dato en una posición dada de la matriz.
+     * @param {number} i fila en la matriz
+     * @param {number} j columna en la matriz
+     * @param {number} dato dato (objeto, letra, cadena...) a almacenar
+     */
+    set(i,j,dato){
         if (i>=0 && i<this.filas && j>=0 && j<this.columnas ) {
             this.data[i][j]=dato;
             return true;
@@ -40,16 +70,25 @@ function Matriz(fil, col){
             return false;
         }
     }
-    this.fill = (dato) => {
+
+    /**
+     * Rellena con "dato" la matriz
+     * @param {*} dato 
+     */
+    fill(dato){
         for(let i=0;i<this.filas;i++){
             this.data[i].fill(dato);                
         }
     }
-    this.toString = () => {
+
+    /**
+     * Nos convierte a cadena los datos almacenados
+     */
+    toString(){
         var salida ="";
         for(let i=0; i<this.filas; i++){                
             for(let j=0;j<this.columnas;j++){
-                salida+=this.data[i][j]+"\t";
+                salida+=this.data[i][j]+" ";
             }
             salida+="\n";
         }
